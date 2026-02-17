@@ -20,6 +20,7 @@ local Window = WindUI:CreateWindow({
         SaveKey = false,
     },
     Transparent = true,
+    Background = "rbxassetid://123691280552142",
     User = {
         Enabled = true,
         Callback = function() 
