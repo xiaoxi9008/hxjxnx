@@ -15,16 +15,22 @@ local Window = WindUI:CreateWindow({
     Folder = "CloudHub",
     Size = UDim2.fromOffset(560, 360),
     KeySystem = {
-        Key = { "我爱大司马", "小西nb" }, 
+        Key = { "我爱大司马", "小西nb", "宇星辰", "阵雨眉目" }, 
         Note = "请输入卡密",
         SaveKey = false,
     },
     Transparent = true,
-    Background = "rbxassetid://123691280552142",
+    Background = "rbxassetid://122305865891820",
+    BackgroundImageTransparency = 0.5,
     User = {
         Enabled = true,
         Callback = function() 
-            print("clicked") 
+        WindUI:Notify({
+            Title = "点击了自己",
+            Content = "没什么",
+            Duration = 1,
+            Icon = "4483362748"
+        })
         end,
         Anonymous = true
     },
@@ -95,7 +101,7 @@ spawn(function()
         fpsCounter += 1
         
         if tick() - fpsLastTime >= 1 then
-            fpsText = string.format("%.1f FPS", fpsCounter) -- 显示一位小数
+            fpsText = string.format("%.1f FPS", fpsCounter) 
             fpsCounter = 0
             fpsLastTime = tick()
         end
