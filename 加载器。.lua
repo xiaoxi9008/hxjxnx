@@ -5,7 +5,25 @@ end
 
 _G.XION_Script_Loaded = true
 _G.XION_Execution_Count = 1
-
+game:GetService("StarterGui"):SetCore("SendNotification", {
+  Title = "正在执行XIAOXI",
+  Text = "正在启动XIAOXI",
+  Icon = "rbxassetid://123691280552142",
+  Duration = 1,
+  Callback = bindable,
+  Button1 = "谢谢使用",
+  Button2 = "作者qq：3574769415",
+})
+wait(1.5)
+game:GetService("StarterGui"):SetCore("SendNotification", {
+  Title = "小西脚本",
+  Text = "正在检测服务器 ",
+  Icon = "rbxassetid://123691280552142",
+  Duration = 1,
+  Callback = bindable,
+  Button1 = "正在检测",
+  Button2 = "请等待",
+})
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 local Window = WindUI:CreateWindow({
     Title = "XIAOXI脚本",
