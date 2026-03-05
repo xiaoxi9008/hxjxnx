@@ -6,23 +6,23 @@ end
 _G.XION_Script_Loaded = true
 _G.XION_Execution_Count = 1
 game:GetService("StarterGui"):SetCore("SendNotification", {
-  Title = "正在执行XIAOXI",
-  Text = "正在启动XIAOXI",
+  Title = "因为你检测到可执行加载器",
+  Text = "正在启动XIAOXI加载器",
   Icon = "rbxassetid://123691280552142",
   Duration = 1,
   Callback = bindable,
   Button1 = "谢谢使用",
-  Button2 = "作者qq：3574769415",
+  Button2 = "😘",
 })
 wait(1.5)
 game:GetService("StarterGui"):SetCore("SendNotification", {
-  Title = "小西脚本",
-  Text = "正在检测服务器 ",
+  Title = "祝你玩得开心",
+  Text = "卡密进群获取 ",
   Icon = "rbxassetid://123691280552142",
   Duration = 1,
   Callback = bindable,
-  Button1 = "正在检测",
-  Button2 = "请等待",
+  Button1 = "qq群：705378396",
+  Button2 = "作者qq：3574769415",
 })
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 local Window = WindUI:CreateWindow({
@@ -38,20 +38,19 @@ local Window = WindUI:CreateWindow({
         SaveKey = false,
     },
     Transparent = true,
-    Background = "rbxassetid://122305865891820",
-    BackgroundImageTransparency = 0.5,
+    Background = "video:https://raw.githubusercontent.com/xiaoxi9008/chesksks/refs/heads/main/c4b2e0536c1c3cb8d947baae97dcf796.mp4",
     User = {
-        Enabled = true,
-        Callback = function() 
-        WindUI:Notify({
-            Title = "点击了自己",
-            Content = "没什么",
-            Duration = 1,
-            Icon = "4483362748"
-        })
-        end,
-        Anonymous = true
-    },
+            Enabled = true,
+            Callback = function()
+                WindUI:Notify({
+                    Title = "点击了自己",
+                    Content = "没什么", 
+                    Duration = 1,
+                    Icon = "4483362748"
+                })
+            end,
+            Anonymous = false
+        },
 })
 
 Window:EditOpenButton(
