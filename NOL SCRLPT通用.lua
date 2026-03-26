@@ -1,7 +1,6 @@
 local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Potato5466794/Wind/refs/heads/main/Wind.luau"))()
 local Window = WindUI:CreateWindow({
     Title = "<font color='#FFB6C1'>N</font><font color='#FFA0B5'>O</font><font color='#FF8AA9'>L</font><font color='#FF749D'> </font><font color='#FF5E91'>S</font><font color='#FF4885'>C</font><font color='#FF3279'>R</font><font color='#FF66B2'>I</font><font color='#FF7EB8'>P</font><font color='#FF96BE'>T</font><font color='#FFAEC4'></font>",
-    Icon = "https://raw.githubusercontent.com/xiaoxi9008/hxjxnx/refs/heads/main/Screenshot_2026-03-26-22-58-58-65_9d26c6446fd7bb8e41d99b6262b17def.jpg",
     Author = "yuxingchen",
     AuthorImage = 90840643379863,
     Folder = "CloudHub",
@@ -12,7 +11,7 @@ local Window = WindUI:CreateWindow({
     SideBarWidth = 135,
     HasOutline = true,
     Transparent = true,
-    Background = "video:https://raw.githubusercontent.com/Potato5466794/LUAUmisc/refs/heads/main/Video_1771590934859_662.mp4",
+    Background = "",
     User = {
             Enabled = true,
             Callback = function()
