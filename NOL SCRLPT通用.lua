@@ -1,3 +1,8 @@
+game.StarterGui:SetCore("SendNotification", {
+    Title = "NOL SCRLPT",
+    Text = "测试是否能使用",
+    Duration = 2 
+})
 local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Potato5466794/Wind/refs/heads/main/Wind.luau"))()
 local Window = WindUI:CreateWindow({
     Title = "<font color='#FFB6C1'>N</font><font color='#FFA0B5'>O</font><font color='#FF8AA9'>L</font><font color='#FF749D'> </font><font color='#FF5E91'>S</font><font color='#FF4885'>C</font><font color='#FF3279'>R</font><font color='#FF66B2'>I</font><font color='#FF7EB8'>P</font><font color='#FF96BE'>T</font><font color='#FFAEC4'></font>",
@@ -11,7 +16,7 @@ local Window = WindUI:CreateWindow({
     SideBarWidth = 135,
     HasOutline = true,
     Transparent = true,
-    Background = "",
+    Background = "video:https://raw.githubusercontent.com/Potato5466794/LUAUmisc/refs/heads/main/Video_1771590934859_662.mp4",
     User = {
             Enabled = true,
             Callback = function()
@@ -1426,6 +1431,115 @@ end)
 
 
 
+
+
+local Tabb = Tabs.Settings:Section({ Title = "边框设置", Icon = "square", Opened = true })
+
+Tabb:Toggle({
+    Title = "启用边框",
+    Value = true,
+    Callback = function(value)
+        borderEnabled = value
+        local mainFrame = Window.UIElements.Main
+        if mainFrame then
+            local rainbowStroke = mainFrame:FindFirstChild("RainbowStroke")
+            if rainbowStroke then
+                rainbowStroke.Enabled = value
+                if value and not borderAnimation then
+                    borderAnimation = startBorderAnimation(Window, animationSpeed)
+                elseif not value and borderAnimation then
+                    borderAnimation:Disconnect()
+                    borderAnimation = nil
+                end
+            end
+        end
+    end
+})
+
+local colorNames = {}
+for name, _ in pairs(COLOR_SCHEMES) do
+    table.insert(colorNames, name)
+end
+
+Tabb:Dropdown({
+    Title = "颜色方案",
+    Values = colorNames,
+    Value = "樱花粉2",
+    Callback = function(value)
+        currentColor = value
+        local mainFrame = Window.UIElements.Main
+        if mainFrame then
+            local rainbowStroke = mainFrame:FindFirstChild("RainbowStroke")
+            if rainbowStroke then
+                local glowEffect = rainbowStroke:FindFirstChild("GlowEffect")
+                if glowEffect then
+                    local schemeData = COLOR_SCHEMES[value]
+                    if schemeData then
+                        glowEffect.Color = schemeData[1]
+                    end
+                end
+            end
+        end
+    end
+})
+
+Tabb:Slider({
+    Title = "动画速度",
+    Value = {
+        Min = 1,
+        Max = 10,
+        Default = 5,
+    },
+    Callback = function(value)
+        animationSpeed = value
+        if borderAnimation then
+            borderAnimation:Disconnect()
+            borderAnimation = nil
+        end
+        if borderEnabled then
+            borderAnimation = startBorderAnimation(Window, animationSpeed)
+        end
+    end
+})
+
+Tabb:Slider({
+    Title = "边框粗细",
+    Value = {
+        Min = 1,
+        Max = 5,
+        Default = 2,
+    },
+    Step = 0.5,
+    Callback = function(value)
+        local mainFrame = Window.UIElements.Main
+        if mainFrame then
+            local rainbowStroke = mainFrame:FindFirstChild("RainbowStroke")
+            if rainbowStroke then
+                rainbowStroke.Thickness = value
+            end
+        end
+    end
+})
+
+Tabb:Slider({
+    Title = "圆角大小",
+    Value = {
+        Min = 0,
+        Max = 30,
+        Default = 16,
+    },
+    Callback = function(value)
+        local mainFrame = Window.UIElements.Main
+        if mainFrame then
+            local corner = mainFrame:FindFirstChildOfClass("UICorner")
+            if not corner then
+                corner = Instance.new("UICorner")
+                corner.Parent = mainFrame
+            end
+            corner.CornerRadius = UDim.new(0, value)
+        end
+    end
+})
 
 Button(Tabb, "折叠UI", function()
     Window:Close()
