@@ -1441,16 +1441,161 @@ Button(TabTool, "Dex中文版", function()
         loadstring(game:HttpGet("https://gitee.com/cmbhbh/cmbh/raw/master/Bex.lua"))()
 end)
 
-Button(TabTool, "Dex中文版", function() 
-        loadstring(game:HttpGet("https://gitee.com/cmbhbh/cmbh/raw/master/Bex.lua"))()
+Button(TabTool, "Cobalt中文版", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/XOTRXONY/GToG/main/Cobalt_Han.Luau"))()
+end)
+
+Button(TabTool, "Cobalt", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaoxi9008/hxjxnx/refs/heads/main/Cobalt.lua"))()
 end)
 
 Button(TabTool, "Https Spy", function() 
         loadstring(game:HttpGet("https://raw.githubusercontent.com/BS58dL/BS/refs/heads/main/请多多支持BS脚本系列.Lua"))()
 end)
 
+local positionGui = nil
+local isPositionGuiEnabled = false
+local player = game.Players.LocalPlayer
 
-local Tabb = Tabs.Settings:Section({ Title = "边框设置", Icon = "square", Opened = true })
+
+TabTool:Toggle({
+    Title = "显示坐标",
+    Callback = function(enabled)
+        isPositionGuiEnabled = enabled
+        if enabled then
+            
+            local character = player.Character or player.CharacterAdded:Wait()
+            local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+            positionGui = Instance.new("ScreenGui")
+            positionGui.Name = "PositionDisplay"
+            positionGui.Parent = player.PlayerGui
+
+            local frame = Instance.new("Frame")
+            frame.Size = UDim2.new(0, 200, 0, 80)
+            frame.Position = UDim2.new(0, 10, 0, 10)
+            frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+            frame.BorderSizePixel = 0
+            frame.BackgroundTransparency = 0.5
+            frame.Parent = positionGui
+
+            local title = Instance.new("TextLabel")
+            title.Size = UDim2.new(1, 0, 0, 20)
+            title.Position = UDim2.new(0, 0, 0, 0)
+            title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+            title.TextColor3 = Color3.fromRGB(255, 255, 255)
+            title.Text = "Character Position"
+            title.Font = Enum.Font.SourceSansBold
+            title.TextSize = 14
+            title.Parent = frame
+
+            local xLabel = Instance.new("TextLabel")
+            xLabel.Size = UDim2.new(1, 0, 0, 20)
+            xLabel.Position = UDim2.new(0, 0, 0, 20)
+            xLabel.BackgroundTransparency = 1
+            xLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+            xLabel.Text = "X: 0.00"
+            xLabel.Font = Enum.Font.SourceSans
+            xLabel.TextSize = 14
+            xLabel.TextXAlignment = Enum.TextXAlignment.Left
+            xLabel.Parent = frame
+
+            local yLabel = Instance.new("TextLabel")
+            yLabel.Size = UDim2.new(1, 0, 0, 20)
+            yLabel.Position = UDim2.new(0, 0, 0, 40)
+            yLabel.BackgroundTransparency = 1
+            yLabel.TextColor3 = Color3.fromRGB(100, 255, 100)
+            yLabel.Text = "Y: 0.00"
+            yLabel.Font = Enum.Font.SourceSans
+            yLabel.TextSize = 14
+            yLabel.TextXAlignment = Enum.TextXAlignment.Left
+            yLabel.Parent = frame
+
+            local zLabel = Instance.new("TextLabel")
+            zLabel.Size = UDim2.new(1, 0, 0, 20)
+            zLabel.Position = UDim2.new(0, 0, 0, 60)
+            zLabel.BackgroundTransparency = 1
+            zLabel.TextColor3 = Color3.fromRGB(100, 100, 255)
+            zLabel.Text = "Z: 0.00"
+            zLabel.Font = Enum.Font.SourceSans
+            zLabel.TextSize = 14
+            zLabel.TextXAlignment = Enum.TextXAlignment.Left
+            zLabel.Parent = frame
+
+            
+            game:GetService("RunService").Heartbeat:Connect(function()
+                if isPositionGuiEnabled and humanoidRootPart then
+                    local pos = humanoidRootPart.Position
+                    xLabel.Text = string.format("X: %.2f", pos.X)
+                    yLabel.Text = string.format("Y: %.2f", pos.Y)
+                    zLabel.Text = string.format("Z: %.2f", pos.Z)
+                end
+            end)
+
+            
+            local dragging = false
+            local dragInput, dragStart, startPos
+            local function updateDrag(input)
+                local delta = input.Position - dragStart
+                frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+            end
+
+            title.InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                    dragging = true
+                    dragStart = input.Position
+                    startPos = frame.Position
+                    input.Changed:Connect(function()
+                        if input.UserInputState == Enum.UserInputState.End then
+                            dragging = false
+                        end
+                    end)
+                end
+            end)
+
+            title.InputChanged:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseMovement then
+                    dragInput = input
+                end
+            end)
+
+            game:GetService("UserInputService").InputChanged:Connect(function(input)
+                if input == dragInput and dragging then
+                    updateDrag(input)
+                end
+            end)
+        else
+            
+            if positionGui then
+                positionGui:Destroy()
+                positionGui = nil
+            end
+        end
+    end
+})
+
+TabTool:Button({
+    Title = "复制坐标",
+    Callback = function()
+        local character = player.Character
+        if not character then
+            WindUI:Notify({Title = "错误", Content = "角色不存在", Duration = 2})
+            return
+        end
+        local rootPart = character:FindFirstChild("HumanoidRootPart")
+        if not rootPart then
+            WindUI:Notify({Title = "错误", Content = "未找到角色根部件", Duration = 2})
+            return
+        end
+        local pos = rootPart.Position
+        local posText = string.format("X: %.2f, Y: %.2f, Z: %.2f", pos.X, pos.Y, pos.Z)
+        setclipboard(posText)
+        WindUI:Notify({Title = "已复制", Content = posText, Duration = 2})
+    end
+})
+
+
+
 
 Tabb:Toggle({
     Title = "启用边框",
