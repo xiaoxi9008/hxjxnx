@@ -228,6 +228,7 @@ local Tab2 = Tab("ESP")
 local Tab3 = Tab("自瞄")
 local Tabc = Tab("范围")
 local Tabjb = Tab("网易云音乐")
+local TabTool = Tab("工具")
 local Tabb = Tab("设置")
 
 local player = game.Players.LocalPlayer
@@ -1431,6 +1432,22 @@ end)
 
 
 
+Button(TabTool, "Dex", function() 
+        FengYu_HUB = "Dex工具"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/DevSloPo/DVES/refs/heads/main/Moon-dex.lua"))()
+end)
+
+Button(TabTool, "Dex中文版", function() 
+        loadstring(game:HttpGet("https://gitee.com/cmbhbh/cmbh/raw/master/Bex.lua"))()
+end)
+
+Button(TabTool, "Dex中文版", function() 
+        loadstring(game:HttpGet("https://gitee.com/cmbhbh/cmbh/raw/master/Bex.lua"))()
+end)
+
+Button(TabTool, "Https Spy", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/BS58dL/BS/refs/heads/main/请多多支持BS脚本系列.Lua"))()
+end)
 
 
 local Tabb = Tabs.Settings:Section({ Title = "边框设置", Icon = "square", Opened = true })
